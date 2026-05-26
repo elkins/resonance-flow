@@ -35,6 +35,7 @@ dev = [
     "pytest-cov",
     "ruff",
     "black",
+    "mypy",
     "mkdocs",
     "mkdocs-material",
     "mkdocstrings[python]",

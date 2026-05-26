@@ -14,9 +14,9 @@ def test_rdc_synthetic_recoverability():
     num_vectors = 20
 
     # 1. Generate random unit vectors
-    v = rng.standard_normal((num_vectors, 3))
-    v = v / np.linalg.norm(v, axis=-1, keepdims=True)
-    v = jnp.array(v)
+    v_np = rng.standard_normal((num_vectors, 3))
+    v_np = v_np / np.linalg.norm(v_np, axis=-1, keepdims=True)
+    v = jnp.array(v_np)
 
     # 2. Generate a random traceless Saupe tensor (5 parameters)
     # Sxx, Syy, Sxy, Sxz, Syz
