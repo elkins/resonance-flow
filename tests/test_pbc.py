@@ -18,13 +18,14 @@ def test_periodic_boundary_conditions():
     loss = loss_fn(positions, atom_radii)
     assert loss > 0.0, f"Expected collision across PBC boundary, got loss {loss}"
 
-    # Check gradients push them away across the boundary
+    # Gradients point in the direction that *increases* the loss.
+    # Atom 0 at 0.1: moving it more negative (toward 0 then wrapping to 10)
+    # increases the cross-boundary distance, so grad[0,0] < 0.
+    # Atom 1 at 9.9: moving it more positive (toward 10 then wrapping to 0)
+    # increases the cross-boundary distance, so grad[1,0] > 0.
     grad_fn = jax.grad(loss_fn)
     grads = grad_fn(positions, atom_radii)
-
-    # Atom 1 should be pushed right (positive x) away from 9.9
-    # Atom 2 should be pushed left (negative x) away from 0.1
-    assert grads[0, 0] < 0.0  # Moving it left increases loss (closer to 9.9)
+    assert grads[0, 0] < 0.0
     assert grads[1, 0] > 0.0
     print("PBC steric clash test passed!")
 

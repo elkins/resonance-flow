@@ -30,7 +30,8 @@ def test_train_step_updates_params():
     initial_params = state.params
     batch = jnp.array([[1, 2, 3, 4, 5]])
     atom_radii = jnp.ones((seq_len,)) * 1.5
-    measured_rdcs = jnp.ones((seq_len - 1,))
+    # estimate_nh_proxy_vectors returns N-2 proxy vectors for N Cα atoms.
+    measured_rdcs = jnp.ones((seq_len - 2,))
 
     new_state, loss, _, _, _ = train_step(
         state, batch, step_rng, atom_radii, measured_rdcs

@@ -3,7 +3,12 @@ import jax.numpy as jnp
 import optax
 from flax.training import train_state
 
-from resonance_flow.losses import get_bond_length_loss, get_steric_clash_loss, rdc_loss
+from resonance_flow.losses import (
+    estimate_nh_proxy_vectors,
+    get_bond_length_loss,
+    get_steric_clash_loss,
+    rdc_loss,
+)
 from resonance_flow.model import TransformerCoordinatePredictor
 
 
@@ -33,8 +38,12 @@ def train_step(state, batch, dropout_rng, atom_radii, measured_rdcs):
         l_steric = steric_loss_fn(c, atom_radii)
         l_bond = bond_loss_fn(c)
 
-        vectors = c[1:] - c[:-1]
-        l_rdc = rdc_loss(vectors, measured_rdcs)
+        # Estimate backbone N-H proxy vectors from Cα positions using the
+        # anti-parallel virtual-bond approximation (Zweckstetter & Bax,
+        # J. Am. Chem. Soc. 2000).  A full-atom model should supply true
+        # N-H internuclear vectors here instead.
+        nh_proxy = estimate_nh_proxy_vectors(c)  # shape (seq_len-2, 3)
+        l_rdc = rdc_loss(nh_proxy, measured_rdcs)
 
         total_loss = l_steric + 10.0 * l_bond + l_rdc
         return total_loss, (l_steric, l_bond, l_rdc)
@@ -60,7 +69,8 @@ def main(num_steps=101, learning_rate=1e-2):
     seq_len = 10
     batch = jax.random.randint(rng, (batch_size, seq_len), 0, 21)
     atom_radii = jnp.ones((seq_len,)) * 1.5
-    measured_rdcs = jnp.ones((seq_len - 1,))
+    # estimate_nh_proxy_vectors returns N-2 vectors for N Cα positions.
+    measured_rdcs = jnp.ones((seq_len - 2,))
 
     print(f"Starting ResonanceFlow training loop ({num_steps} steps)...")
     for step in range(num_steps):
