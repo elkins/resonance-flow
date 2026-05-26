@@ -156,7 +156,9 @@ def test_rdc_q_factor_perfect_structure():
     # Perfect structure: Q must be ~0.
     q_perfect = rdc_q_factor(v, measured, d_max=d_max)
     print(f"Q-factor (perfect structure): {q_perfect:.2e}")
-    assert q_perfect < 1e-3, f"Q for perfect structure should be ~0, got {q_perfect:.4f}"
+    assert (
+        q_perfect < 1e-3
+    ), f"Q for perfect structure should be ~0, got {q_perfect:.4f}"
 
     # Random (wrong) vectors: Q must be substantially higher.
     rng2 = np.random.default_rng(99)
@@ -165,7 +167,9 @@ def test_rdc_q_factor_perfect_structure():
     v_random = jnp.array(v_random_np)
     q_random = rdc_q_factor(v_random, measured, d_max=d_max)
     print(f"Q-factor (random structure): {q_random:.4f}")
-    assert q_random > q_perfect * 100, "Random structure should have much worse Q-factor"
+    assert (
+        q_random > q_perfect * 100
+    ), "Random structure should have much worse Q-factor"
 
 
 def test_rdc_rotation_invariance():
@@ -211,9 +215,9 @@ def test_rdc_rotation_invariance():
 
     print(f"RDC loss original:  {loss_original:.4f}")
     print(f"RDC loss rotated:   {loss_rotated:.4f}")
-    assert jnp.allclose(loss_original, loss_rotated, atol=1e-2), (
-        f"RDC loss changed after rotation: {loss_original:.4f} vs {loss_rotated:.4f}"
-    )
+    assert jnp.allclose(
+        loss_original, loss_rotated, atol=1e-2
+    ), f"RDC loss changed after rotation: {loss_original:.4f} vs {loss_rotated:.4f}"
 
 
 def test_bond_loss_ideal_geometry():
@@ -239,17 +243,17 @@ def test_bond_loss_ideal_geometry():
     )
     loss_ideal = bond_fn(positions)
     print(f"Bond loss at 3.8 Å (ideal):  {loss_ideal:.2e}")
-    assert jnp.isclose(loss_ideal, 0.0, atol=1e-6), (
-        f"Bond loss must be 0 at ideal 3.8 Å geometry, got {loss_ideal}"
-    )
+    assert jnp.isclose(
+        loss_ideal, 0.0, atol=1e-6
+    ), f"Bond loss must be 0 at ideal 3.8 Å geometry, got {loss_ideal}"
 
     # The incorrect old default of 1.52 Å would severely penalise valid geometry.
     bond_fn_wrong = get_bond_length_loss(target_distance=1.52)
     loss_wrong = bond_fn_wrong(positions)
     print(f"Bond loss at 1.52 Å (wrong): {loss_wrong:.2f}")
     assert loss_wrong > 4.0, (
-        f"Old 1.52 Å default should produce large loss on valid geometry, got {loss_wrong:.4f}"
-        f" (expected > 4.0; actual MSE = (3.8 - 1.52)² = 5.20)"
+        f"Old 1.52 Å default should produce large loss on valid geometry,"
+        f" got {loss_wrong:.4f} (expected > 4.0; actual MSE = (3.8 - 1.52)² = 5.20)"
     )
 
 
@@ -337,17 +341,21 @@ def test_saupe_tensor_eigenvalue_bounds():
     # Tracelessness.
     trace = jnp.trace(S_matrix)
     print(f"Saupe tensor trace: {trace:.2e}  (must be ~0)")
-    assert jnp.isclose(trace, 0.0, atol=1e-6), f"Saupe tensor not traceless: trace={trace:.2e}"
+    assert jnp.isclose(
+        trace, 0.0, atol=1e-6
+    ), f"Saupe tensor not traceless: trace={trace:.2e}"
 
     # Symmetry.
-    assert jnp.allclose(S_matrix, S_matrix.T, atol=1e-8), "Saupe tensor must be symmetric"
+    assert jnp.allclose(
+        S_matrix, S_matrix.T, atol=1e-8
+    ), "Saupe tensor must be symmetric"
 
     # Eigenvalue bounds: principal order parameters in [-0.5, 1.0].
     eigenvalues = jnp.linalg.eigvalsh(S_matrix)
     print(f"Saupe tensor eigenvalues: {eigenvalues}")
-    assert jnp.all(eigenvalues >= -0.5 - 1e-6), (
-        f"Saupe eigenvalues must be >= -0.5, got {eigenvalues}"
-    )
-    assert jnp.all(eigenvalues <= 1.0 + 1e-6), (
-        f"Saupe eigenvalues must be <= 1.0, got {eigenvalues}"
-    )
+    assert jnp.all(
+        eigenvalues >= -0.5 - 1e-6
+    ), f"Saupe eigenvalues must be >= -0.5, got {eigenvalues}"
+    assert jnp.all(
+        eigenvalues <= 1.0 + 1e-6
+    ), f"Saupe eigenvalues must be <= 1.0, got {eigenvalues}"
