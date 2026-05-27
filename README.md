@@ -6,7 +6,7 @@
 [![Documentation](https://img.shields.io/badge/docs-mkdocs--material-blue.svg)](https://elkins.github.io/resonance-flow/)
 [![Python](https://img.shields.io/badge/python-3.10%20|%203.11%20|%203.12-blue.svg)](https://www.python.org/)
 [![Version](https://img.shields.io/badge/version-0.1.0--alpha-orange.svg)](https://github.com/elkins/resonance-flow/releases)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Linting: ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Type checked: mypy](https://img.shields.io/badge/type%20checked-mypy-blue.svg)](https://mypy-lang.org/)
 [![JAX](https://img.shields.io/badge/framework-JAX%20%2B%20Flax-9cf.svg)](https://jax.readthedocs.io/)
@@ -162,15 +162,14 @@ explosion and follows the convention recommended by Xiong et al. 2020.
 
 Contributions are welcome! Please open an issue or pull request. The project follows:
 
-- **Formatting:** `black`
-- **Linting:** `ruff`
+- **Formatting + Linting:** `ruff` / `ruff format`
 - **Type checking:** `mypy`
 - **Testing:** `pytest` with coverage
 
 ```bash
 # Run the full quality pipeline before submitting a PR
 ruff check resonance_flow tests
-black resonance_flow tests
+ruff format resonance_flow tests
 mypy resonance_flow tests
 pytest --cov=resonance_flow tests
 ```
@@ -186,3 +185,29 @@ Full theory, API reference, and examples at **[elkins.github.io/resonance-flow](
 ## ⚖️ License
 
 MIT © George Elkins
+
+---
+
+## 🔗 Related Projects
+
+ResonanceFlow is the most complete end-to-end model in this ecosystem, depending on:
+
+- [diff-biophys](https://github.com/elkins/diff-biophys) — Differentiable RDC, NOE, bond-length, and clash kernels
+- [synth-nmr](https://github.com/elkins/synth-nmr) — NMR parameter libraries (chemical shifts, Karplus, RDC)
+- [synth-pdb](https://github.com/elkins/synth-pdb) — Protein structure data generation
+- [TorsionTuner](https://github.com/elkins/TorsionTuner) — Single-structure refinement using similar torsion-space kinematics
+- [diff-ensemble](https://github.com/elkins/diff-ensemble) — Ensemble counterpart for IDPs
+
+---
+
+## 📖 Citation
+
+```bibtex
+@software{resonance_flow,
+  author  = {Elkins, George},
+  title   = {ResonanceFlow: Differentiable protein structure prediction with NMR self-correction},
+  year    = {2024},
+  url     = {https://github.com/elkins/resonance-flow},
+  version = {0.1.0}
+}
+```

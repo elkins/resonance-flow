@@ -28,9 +28,9 @@ def test_nh_proxy_vectors_are_unit_length():
     )
     proxies = estimate_nh_proxy_vectors(ca_coords)
     norms = jnp.linalg.norm(proxies, axis=-1)
-    assert jnp.allclose(
-        norms, 1.0, atol=1e-5
-    ), f"Proxy vectors must be unit length, got norms {norms}"
+    assert jnp.allclose(norms, 1.0, atol=1e-5), (
+        f"Proxy vectors must be unit length, got norms {norms}"
+    )
 
 
 def test_nh_proxy_vectors_output_shape():
@@ -94,12 +94,9 @@ def test_steric_bonded_exclusion_eliminates_adjacent_penalty():
     print(f"Steric loss (no exclusion):      {loss_without:.4f}")
     print(f"Steric loss (1-2 excl.):         {loss_with:.4f}")
 
-    assert (
-        loss_without > 0.0
-    ), "Without exclusion, overlapping atoms must incur a penalty"
+    assert loss_without > 0.0, "Without exclusion, overlapping atoms must incur a penalty"
     assert loss_with == 0.0, (
-        "Adjacent (1-2) bonded atoms must not be penalised"
-        f" with exclusion, got {loss_with}"
+        f"Adjacent (1-2) bonded atoms must not be penalised with exclusion, got {loss_with}"
     )
 
 
@@ -124,9 +121,7 @@ def test_steric_non_adjacent_still_penalised_with_exclusion():
 
     loss = loss_fn(positions, atom_radii)
     print(f"Steric loss (non-adjacent overlap, 1-2 excl.): {loss:.4f}")
-    assert (
-        loss > 0.0
-    ), "Non-adjacent overlapping atoms must still incur a steric penalty"
+    assert loss > 0.0, "Non-adjacent overlapping atoms must still incur a steric penalty"
 
 
 def test_steric_exclusion_range_2_removes_13_pairs():
@@ -173,6 +168,4 @@ def test_steric_default_matches_original_behaviour():
     radii = jnp.array([1.5, 1.5])
     loss = loss_fn_new(pos_clash, radii)
     # overlap = (3.0 - 1.0) = 2.0; both [0,1] and [1,0] contribute → sum = 4+4, /2 = 4
-    assert jnp.isclose(
-        loss, 4.0
-    ), f"Default behaviour regression: expected 4.0, got {loss}"
+    assert jnp.isclose(loss, 4.0), f"Default behaviour regression: expected 4.0, got {loss}"

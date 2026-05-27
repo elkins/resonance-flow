@@ -35,7 +35,7 @@ class TransformerCoordinatePredictor(nn.Module):
         x = x + pos_emb[:, :seq_len, :]
         x = nn.Dropout(rate=self.dropout_rate)(x, deterministic=deterministic)
 
-        for i in range(self.num_layers):
+        for _ in range(self.num_layers):
             y = nn.LayerNorm()(x)
             y = nn.SelfAttention(
                 num_heads=self.num_heads,
@@ -51,7 +51,5 @@ class TransformerCoordinatePredictor(nn.Module):
             x = x + nn.Dropout(rate=self.dropout_rate)(y, deterministic=deterministic)
 
         x = nn.LayerNorm()(x)
-        coords = nn.Dense(features=3, kernel_init=nn.initializers.normal(stddev=1e-3))(
-            x
-        )
+        coords = nn.Dense(features=3, kernel_init=nn.initializers.normal(stddev=1e-3))(x)
         return coords

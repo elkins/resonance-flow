@@ -59,9 +59,7 @@ def main(num_steps=101, learning_rate=1e-2):
     rng = jax.random.PRNGKey(0)
     rng, init_rng = jax.random.split(rng)
 
-    model = TransformerCoordinatePredictor(
-        vocab_size=21, d_model=32, num_heads=2, num_layers=2
-    )
+    model = TransformerCoordinatePredictor(vocab_size=21, d_model=32, num_heads=2, num_layers=2)
 
     state = create_train_state(init_rng, model, learning_rate=learning_rate)
 

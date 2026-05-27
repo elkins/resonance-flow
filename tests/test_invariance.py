@@ -17,9 +17,9 @@ def test_rotation_invariance():
 
     rotated_loss = loss_fn(rotated_positions, atom_radii)
 
-    assert jnp.allclose(
-        initial_loss, rotated_loss
-    ), f"Loss changed after rotation: {initial_loss} vs {rotated_loss}"
+    assert jnp.allclose(initial_loss, rotated_loss), (
+        f"Loss changed after rotation: {initial_loss} vs {rotated_loss}"
+    )
     print("Rotation invariance test passed!")
 
 
@@ -36,9 +36,9 @@ def test_translation_invariance():
 
     translated_loss = loss_fn(translated_positions, atom_radii)
 
-    assert jnp.allclose(
-        initial_loss, translated_loss
-    ), f"Loss changed after translation: {initial_loss} vs {translated_loss}"
+    assert jnp.allclose(initial_loss, translated_loss), (
+        f"Loss changed after translation: {initial_loss} vs {translated_loss}"
+    )
     print("Translation invariance test passed!")
 
 

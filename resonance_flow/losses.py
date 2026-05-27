@@ -137,9 +137,7 @@ def rdc_loss(predicted_vectors, measured_rdcs, d_max=21700.0):
 
     # 2. Build the design matrix A so that A @ s = D_calc.
     x, y, z = v[:, 0], v[:, 1], v[:, 2]
-    A = d_max * jnp.stack(
-        [x**2 - z**2, y**2 - z**2, 2 * x * y, 2 * x * z, 2 * y * z], axis=1
-    )
+    A = d_max * jnp.stack([x**2 - z**2, y**2 - z**2, 2 * x * y, 2 * x * z, 2 * y * z], axis=1)
 
     # 3. Fit Saupe tensor (least squares; ridge penalty for numerical stability).
     s, _, _, _ = jnp.linalg.lstsq(A, measured_rdcs, rcond=1e-5)
@@ -173,9 +171,7 @@ def rdc_q_factor(predicted_vectors, measured_rdcs, d_max=21700.0):
     v = predicted_vectors / (norms + 1e-8)
 
     x, y, z = v[:, 0], v[:, 1], v[:, 2]
-    A = d_max * jnp.stack(
-        [x**2 - z**2, y**2 - z**2, 2 * x * y, 2 * x * z, 2 * y * z], axis=1
-    )
+    A = d_max * jnp.stack([x**2 - z**2, y**2 - z**2, 2 * x * y, 2 * x * z, 2 * y * z], axis=1)
     s, _, _, _ = jnp.linalg.lstsq(A, measured_rdcs, rcond=1e-5)
     predicted_rdcs = A @ s
 
