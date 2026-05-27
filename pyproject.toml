@@ -7,12 +7,11 @@ name = "resonance-flow"
 version = "0.1.0"
 description = "Self-correcting protein folding with differentiable NMR constraints"
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
 authors = [{name = "George Elkins"}]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -46,6 +45,7 @@ include = ["resonance_flow*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 python_files = ["test_*.py"]
 
 [tool.ruff]
