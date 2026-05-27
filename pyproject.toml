@@ -25,7 +25,7 @@ dependencies = [
     "flax",
     "optax",
     "jax-md",
-    "numpy",
+    "numpy<2.0.0",
 ]
 
 [project.optional-dependencies]
