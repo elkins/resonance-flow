@@ -203,9 +203,9 @@ def test_rdc_rotation_invariance() -> None:
 
     print(f"RDC loss original:  {loss_original:.4f}")
     print(f"RDC loss rotated:   {loss_rotated:.4f}")
-    assert jnp.allclose(
-        loss_original, loss_rotated, atol=1e-2
-    ), f"RDC loss changed after rotation: {loss_original:.4f} vs {loss_rotated:.4f}"
+    assert jnp.allclose(loss_original, loss_rotated, atol=1e-2), (
+        f"RDC loss changed after rotation: {loss_original:.4f} vs {loss_rotated:.4f}"
+    )
 
 
 def test_bond_loss_ideal_geometry() -> None:
@@ -231,9 +231,9 @@ def test_bond_loss_ideal_geometry() -> None:
     )
     loss_ideal = bond_fn(positions)
     print(f"Bond loss at 3.8 Å (ideal):  {loss_ideal:.2e}")
-    assert jnp.isclose(
-        loss_ideal, 0.0, atol=1e-6
-    ), f"Bond loss must be 0 at ideal 3.8 Å geometry, got {loss_ideal}"
+    assert jnp.isclose(loss_ideal, 0.0, atol=1e-6), (
+        f"Bond loss must be 0 at ideal 3.8 Å geometry, got {loss_ideal}"
+    )
 
     # The incorrect old default of 1.52 Å would severely penalise valid geometry.
     bond_fn_wrong = get_bond_length_loss(target_distance=1.52)
@@ -335,9 +335,9 @@ def test_saupe_tensor_eigenvalue_bounds() -> None:
     # Eigenvalue bounds: principal order parameters in [-0.5, 1.0].
     eigenvalues = jnp.linalg.eigvalsh(S_matrix)
     print(f"Saupe tensor eigenvalues: {eigenvalues}")
-    assert jnp.all(
-        eigenvalues >= -0.5 - 1e-6
-    ), f"Saupe eigenvalues must be >= -0.5, got {eigenvalues}"
-    assert jnp.all(
-        eigenvalues <= 1.0 + 1e-6
-    ), f"Saupe eigenvalues must be <= 1.0, got {eigenvalues}"
+    assert jnp.all(eigenvalues >= -0.5 - 1e-6), (
+        f"Saupe eigenvalues must be >= -0.5, got {eigenvalues}"
+    )
+    assert jnp.all(eigenvalues <= 1.0 + 1e-6), (
+        f"Saupe eigenvalues must be <= 1.0, got {eigenvalues}"
+    )
