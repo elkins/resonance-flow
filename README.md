@@ -148,7 +148,7 @@ TransformerCoordinatePredictor
 ├── Embedding         (vocab_size=21, d_model=128)
 ├── Positional Embed  (learned, max_len=512)
 ├── N × Pre-LN Block
-│   ├── LayerNorm → MultiHeadSelfAttention → Residual
+│   ├── LayerNorm → MultiHeadDotProductAttention → Residual
 │   └── LayerNorm → FFN (4× expand, GELU) → Residual
 └── LayerNorm → Linear(3)   # → (batch, seq_len, 3) Cα coordinates
 ```

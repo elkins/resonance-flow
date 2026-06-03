@@ -38,7 +38,7 @@ class TransformerCoordinatePredictor(nn.Module):
 
         for _ in range(self.num_layers):
             y = nn.LayerNorm()(x)
-            y = nn.SelfAttention(
+            y = nn.MultiHeadDotProductAttention(
                 num_heads=self.num_heads,
                 qkv_features=self.d_model,
                 out_features=self.d_model,
