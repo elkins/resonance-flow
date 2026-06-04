@@ -127,6 +127,19 @@ noe_upper_bound_loss(positions, noe_pairs[:1], upper_bounds[:1])  # → 0.0
 
 ---
 
+## 🎓 Interactive Tutorial Catalog
+
+Experience **ResonanceFlow** directly in your browser via Google Colab. These interactive tutorials cover everything from basic biophysics to advanced structural self-correction.
+
+| Tutorial | Difficulty | Time | Action |
+| :--- | :--- | :--- | :--- |
+| **Self-Correction Demo** | ⭐ Beginner | 15 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/elkins/resonance-flow/blob/main/examples/interactive_tutorials/self_correction_demo.ipynb) |
+| **Biophysical Constraints** | ⭐ Beginner | 15 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/elkins/resonance-flow/blob/main/examples/interactive_tutorials/biophysical_constraints.ipynb) |
+| **Differentiable NMR** | ⭕ Intermediate | 25 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/elkins/resonance-flow/blob/main/examples/interactive_tutorials/differentiable_nmr.ipynb) |
+| **Transformer-to-Coords** | 🏔️ Advanced | 30 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/elkins/resonance-flow/blob/main/examples/interactive_tutorials/transformer_to_coords.ipynb) |
+
+---
+
 ## 🔬 Scientific Basis
 
 All loss functions and validation metrics are grounded in published, peer-reviewed NMR methodology:
