@@ -28,9 +28,9 @@ def test_nh_proxy_vectors_are_unit_length() -> None:
     )
     proxies = estimate_nh_proxy_vectors(ca_coords)
     norms = jnp.linalg.norm(proxies, axis=-1)
-    assert jnp.allclose(
-        norms, 1.0, atol=1e-5
-    ), f"Proxy vectors must be unit length, got norms {norms}"
+    assert jnp.allclose(norms, 1.0, atol=1e-5), (
+        f"Proxy vectors must be unit length, got norms {norms}"
+    )
 
 
 def test_nh_proxy_vectors_output_shape() -> None:
@@ -95,9 +95,9 @@ def test_steric_bonded_exclusion_eliminates_adjacent_penalty() -> None:
     print(f"Steric loss (1-2 excl.):         {loss_with:.4f}")
 
     assert loss_without > 0.0, "Without exclusion, overlapping atoms must incur a penalty"
-    assert (
-        loss_with == 0.0
-    ), f"Adjacent (1-2) bonded atoms must not be penalised with exclusion, got {loss_with}"
+    assert loss_with == 0.0, (
+        f"Adjacent (1-2) bonded atoms must not be penalised with exclusion, got {loss_with}"
+    )
 
 
 def test_steric_non_adjacent_still_penalised_with_exclusion() -> None:

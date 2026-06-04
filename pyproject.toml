@@ -33,7 +33,6 @@ dev = [
     "pytest",
     "pytest-cov",
     "ruff",
-    "black",
     "mypy",
     "mkdocs",
     "mkdocs-material",
@@ -51,10 +50,6 @@ python_files = ["test_*.py"]
 [tool.ruff]
 line-length = 100
 target-version = "py310"
-
-[tool.black]
-line-length = 100
-target-version = ['py310']
 
 [tool.ruff.format]
 quote-style = "double"
