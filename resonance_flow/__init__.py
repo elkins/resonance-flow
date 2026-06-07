@@ -12,4 +12,4 @@ from resonance_flow.model import (
     TransformerCoordinatePredictor as TransformerCoordinatePredictor,
 )
 
-__version__ = "0.1.0"
+__version__ = "0.1.2"
