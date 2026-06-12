@@ -1,4 +1,4 @@
-# 🧬 ResonanceFlow: Differentiable Protein Structure Prediction with NMR Self-Correction
+# 🧬 Resonance-Flow: Differentiable Protein Structure Prediction with NMR Self-Correction
 
 [![Tests](https://github.com/elkins/resonance-flow/actions/workflows/test.yml/badge.svg)](https://github.com/elkins/resonance-flow/actions/workflows/test.yml)
 [![Docs](https://github.com/elkins/resonance-flow/actions/workflows/docs.yml/badge.svg)](https://github.com/elkins/resonance-flow/actions/workflows/docs.yml)
@@ -10,7 +10,7 @@
 [![Type checked: mypy](https://img.shields.io/badge/type%20checked-mypy-blue.svg)](https://mypy-lang.org/)
 [![JAX](https://img.shields.io/badge/framework-JAX%20%2B%20Flax-9cf.svg)](https://jax.readthedocs.io/)
 
-**ResonanceFlow** is a JAX-native protein structure prediction framework that integrates differentiable biophysics with experimental NMR constraints. It allows models to "self-correct" by propagating gradients from physical violations (atomic clashes, bad geometry) and NMR observables (RDCs, NOE distances) back into the neural network architecture — end-to-end, with no manual refinement step.
+**Resonance-Flow** is a JAX-native protein structure prediction framework that integrates differentiable biophysics with experimental NMR constraints. It allows models to "self-correct" by propagating gradients from physical violations (atomic clashes, bad geometry) and NMR observables (RDCs, NOE distances) back into the neural network architecture — end-to-end, with no manual refinement step.
 
 ---
 
@@ -30,7 +30,7 @@
 
 ## 🧠 The Concept: "Self-Correction"
 
-Traditional folding models are trained on static PDB snapshots. ResonanceFlow instead teaches a model to *listen* to physical laws and NMR data during training itself:
+Traditional folding models are trained on static PDB snapshots.  Resonance-Flow instead teaches a model to *listen* to physical laws and NMR data during training itself:
 
 ```
   Sequence  →  [Transformer]  →  Cα Coordinates
@@ -129,7 +129,7 @@ noe_upper_bound_loss(positions, noe_pairs[:1], upper_bounds[:1])  # → 0.0
 
 ## 🎓 Interactive Tutorial Catalog
 
-Experience **ResonanceFlow** directly in your browser via Google Colab. These interactive tutorials cover everything from basic biophysics to advanced structural self-correction.
+Experience **Resonance-Flow** directly in your browser via Google Colab. These interactive Jupyter Notebook tutorials cover everything from basic biophysics to advanced structural self-correction.
 
 | Tutorial | Difficulty | Time | Action |
 | :--- | :--- | :--- | :--- |
@@ -205,12 +205,12 @@ MIT © George Elkins
 
 ## 🔗 Related Projects
 
-ResonanceFlow is the most complete end-to-end model in this ecosystem, depending on:
+Resonance-Flow is the most complete end-to-end model in this ecosystem, depending on:
 
 - [diff-biophys](https://github.com/elkins/diff-biophys) — Differentiable RDC, NOE, bond-length, and clash kernels
 - [synth-nmr](https://github.com/elkins/synth-nmr) — NMR parameter libraries (chemical shifts, Karplus, RDC)
 - [synth-pdb](https://github.com/elkins/synth-pdb) — Protein structure data generation
-- [TorsionTuner](https://github.com/elkins/TorsionTuner) — Single-structure refinement using similar torsion-space kinematics
+- [torsion-tuner](https://github.com/elkins/torsion-tuner) — Single-structure refinement using similar torsion-space kinematics
 - [diff-ensemble](https://github.com/elkins/diff-ensemble) — Ensemble counterpart for IDPs
 
 ---
@@ -220,7 +220,7 @@ ResonanceFlow is the most complete end-to-end model in this ecosystem, depending
 ```bibtex
 @software{resonance_flow,
   author  = {Elkins, George},
-  title   = {ResonanceFlow: Differentiable protein structure prediction with NMR self-correction},
+  title   = {Resonance-Flow: Differentiable protein structure prediction with NMR self-correction},
   year    = {2026},
   url     = {https://github.com/elkins/resonance-flow},
   version = {0.1.0}
